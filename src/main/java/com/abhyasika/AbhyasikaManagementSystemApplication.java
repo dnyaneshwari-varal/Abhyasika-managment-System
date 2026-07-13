@@ -9,5 +9,6 @@ public class AbhyasikaManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AbhyasikaManagementSystemApplication.class, args);
 	}
+	
 
 }
