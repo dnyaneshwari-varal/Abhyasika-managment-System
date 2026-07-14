@@ -1,9 +1,10 @@
 package com.abhyasika.service;
 
 import com.abhyasika.dto.AdminDTO;
+import com.abhyasika.dto.AdminLoginDTO;
 
 public interface AdminService {
 
-    AdminDTO login(String email, String password);
+    AdminDTO login(AdminLoginDTO loginDTO);
 
 }
