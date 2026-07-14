@@ -1,6 +1,7 @@
 package com.abhyasika.serviceimpl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,13 +25,22 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public StudentDTO registerStudent(StudentDTO studentDTO) {
+		if (studentRepository.existsByEmail(studentDTO.getEmail())) {
+		    throw new RuntimeException("Email already exists");
+		}
+
+		if (studentRepository.existsByMobile(studentDTO.getMobile())) {
+		    throw new RuntimeException("Mobile number already exists");
+		}
 		Student student = new Student();
 		
 		// copy data of studentDTO to entity because studentRepository needs entity not dto of student
+		
 		student.setFullName(studentDTO.getFullName());
 		student.setMobile(studentDTO.getMobile());
 		student.setEmail(studentDTO.getEmail());
 		student.setGender(studentDTO.getGender());
+		student.setPassword(studentDTO.getPassword());
 		student.setAddress(studentDTO.getAddress());
 		//When a student registers today, the backend automatically stores today's date.
 		student.setJoinDate(LocalDate.now());
@@ -39,10 +49,13 @@ public class StudentServiceImpl implements StudentService{
 		
 	   // Save in Database
 	    Student savedStudent = studentRepository.save(student);
+	    savedStudent.setStudentId(String.format("STU%03d", savedStudent.getId()));
+
+	    studentRepository.save(savedStudent);
 
 	    // Convert Entity to DTO
 	    StudentDTO response = new StudentDTO();
-
+	    response.setStudentId(savedStudent.getStudentId());
 	    response.setFullName(savedStudent.getFullName());
 	    response.setMobile(savedStudent.getMobile());
 	    response.setEmail(savedStudent.getEmail());
@@ -52,28 +65,85 @@ public class StudentServiceImpl implements StudentService{
 	    return response;
 	}
 
+	
 	@Override
 	public List<StudentDTO> getAllStudents() {
-		// TODO Auto-generated method stub
-		return null;
+
+	    List<Student> students = studentRepository.findAll();
+
+	    List<StudentDTO> studentDTOList = new ArrayList<>();
+
+	    for (Student student : students) {
+	    	
+
+	        StudentDTO dto = new StudentDTO();
+	        
+	        dto.setStudentId(student.getStudentId());
+	        dto.setFullName(student.getFullName());
+	        dto.setMobile(student.getMobile());
+	        dto.setEmail(student.getEmail());
+	        dto.setGender(student.getGender());
+	        dto.setAddress(student.getAddress());
+
+	        studentDTOList.add(dto);
+	    }
+
+	    return studentDTOList;
 	}
 
 	@Override
 	public StudentDTO getStudentById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	    Student student = studentRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+	    StudentDTO dto = new StudentDTO();
+	    dto.setStudentId(student.getStudentId());
+	    dto.setFullName(student.getFullName());
+	    dto.setMobile(student.getMobile());
+	    dto.setEmail(student.getEmail());
+	    dto.setGender(student.getGender());
+	    dto.setAddress(student.getAddress());
+
+	    return dto;
+	}
 	@Override
 	public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
-		// TODO Auto-generated method stub
-		return null;
+
+	    Student student = studentRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+	    // Update values
+	    
+	    student.setFullName(studentDTO.getFullName());
+	    student.setMobile(studentDTO.getMobile());
+	    student.setEmail(studentDTO.getEmail());
+	    student.setGender(studentDTO.getGender());
+	    student.setAddress(studentDTO.getAddress());
+
+	    Student updatedStudent = studentRepository.save(student);
+
+	    StudentDTO response = new StudentDTO();
+	    response.setStudentId(updatedStudent.getStudentId());
+	    response.setFullName(updatedStudent.getFullName());
+	    response.setMobile(updatedStudent.getMobile());
+	    response.setEmail(updatedStudent.getEmail());
+	    response.setGender(updatedStudent.getGender());
+	    response.setAddress(updatedStudent.getAddress());
+
+	    return response;
 	}
 
 	@Override
-	public void deleteStudent(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteStudent(String studentId) {
+
+		Student student = studentRepository.findByStudentId(studentId)
+		        .orElseThrow(() -> new RuntimeException("Student not found"));
+
+		studentRepository.delete(student);
+
 	}
+	
+	
 
 }

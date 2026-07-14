@@ -35,6 +35,8 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    private String studentId; // Visible Student ID
 
     private String fullName;
 
@@ -44,6 +46,8 @@ public class Student {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    
+    private String password;
 
     private String address;
 

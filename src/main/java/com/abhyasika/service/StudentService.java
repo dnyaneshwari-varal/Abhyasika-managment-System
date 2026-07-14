@@ -19,6 +19,6 @@ public interface StudentService {
     StudentDTO updateStudent(Long id, StudentDTO studentDTO);
 
     //delete student 
-    void deleteStudent(Long id);
+    void deleteStudent(String studentId);
 
 }
