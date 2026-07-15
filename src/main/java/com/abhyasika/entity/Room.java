@@ -2,7 +2,12 @@ package com.abhyasika.entity;
 
 import java.util.List;
 
+import com.abhyasika.enums.RoomType;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +25,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "seats")
 public class Room {
 
     @Id
@@ -29,8 +34,20 @@ public class Room {
 
     private String roomName;
 
-    private String description;
+    @Enumerated(EnumType.STRING)
+    private RoomType roomType;
 
-    @OneToMany(mappedBy = "room")
-    private List<Seat> seats;
+    private String description;
+    
+    private Integer seatCount;
+
+   
+    
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+        )
+        private List<Seat> seats;
+    
 }
