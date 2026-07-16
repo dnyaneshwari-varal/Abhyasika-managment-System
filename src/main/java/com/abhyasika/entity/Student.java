@@ -6,6 +6,7 @@ import java.util.List;
 import com.abhyasika.enums.Gender;
 import com.abhyasika.enums.StudentStatus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,13 +37,17 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(unique = true)
+    
     private String studentId; // Visible Student ID
 
     private String fullName;
-
-    private String mobile;
-
+    
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String mobile;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

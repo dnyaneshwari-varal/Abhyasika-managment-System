@@ -14,5 +14,6 @@ public interface RoomService {
 
     RoomDTO updateRoom(Long id, RoomDTO roomDTO);
 
-    void deleteRoom(Long id);
+   
+    void deleteRoom(String roomCode);
 }

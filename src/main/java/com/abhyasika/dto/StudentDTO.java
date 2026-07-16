@@ -41,5 +41,11 @@ public class StudentDTO {
 	        message = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
 	    )
 	    private String password;
+	    
+	    @NotBlank(message = "Room Code is required")
+	    private String roomCode;
+
+	    @NotBlank(message = "Seat Number is required")
+	    private String seatNumber;
 }
 

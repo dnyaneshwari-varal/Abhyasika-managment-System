@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.abhyasika.entity.Seat;
-import com.abhyasika.enums.SeatStatus;
-import com.abhyasika.enums.RoomType;
-import com.abhyasika.repository.SeatRepository;
+
 import com.abhyasika.dto.RoomDTO;
 import com.abhyasika.entity.Room;
+import com.abhyasika.entity.Seat;
+import com.abhyasika.enums.RoomType;
+import com.abhyasika.enums.SeatStatus;
 import com.abhyasika.repository.RoomRepository;
+import com.abhyasika.repository.SeatRepository;
 import com.abhyasika.service.RoomService;
 @Service
 
@@ -44,6 +45,7 @@ public class RoomServiceImpl implements RoomService{
 	    
 	    room.setRoomName(roomDTO.getRoomName());
 	    room.setRoomType(roomDTO.getRoomType());
+	    room.setRoomCode(roomDTO.getRoomCode());
 	    room.setSeatCount(roomDTO.getSeatCount());
 	    room.setDescription(roomDTO.getDescription());
 
@@ -62,8 +64,8 @@ public class RoomServiceImpl implements RoomService{
 
 	        Seat seat = new Seat();
 
-	        seat.setSeatNumber(prefix + i);
-
+//	        seat.setSeatNumber("R" + savedRoom.getId() + "-" + prefix + String.format("%02d", i));
+	        seat.setSeatNumber(savedRoom.getRoomCode() + "-" + prefix + String.format("%02d", i));
 	        seat.setSeatStatus(SeatStatus.AVAILABLE);
 
 	        seat.setRoom(savedRoom);
@@ -76,6 +78,7 @@ public class RoomServiceImpl implements RoomService{
 	    
 	    response.setRoomName(savedRoom.getRoomName());
 	    response.setRoomType(savedRoom.getRoomType());
+	    response.setRoomCode(savedRoom.getRoomCode());
 	    response.setSeatCount(savedRoom.getSeatCount());
 	    response.setDescription(savedRoom.getDescription());
 
@@ -144,9 +147,9 @@ public class RoomServiceImpl implements RoomService{
 	}
 	
 	@Override
-	public void deleteRoom(Long id) {
+	public void deleteRoom(String roomCode) {
 
-	    Room room = roomRepository.findById(id)
+	    Room room = roomRepository.findByRoomCode(roomCode)
 	            .orElseThrow(() -> new RuntimeException("Room not found"));
 
 	    roomRepository.delete(room);

@@ -5,6 +5,7 @@ import java.util.List;
 import com.abhyasika.enums.RoomType;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,6 +35,9 @@ public class Room {
 
     private String roomName;
 
+    @Column(unique = true)
+    private String roomCode;
+    
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 

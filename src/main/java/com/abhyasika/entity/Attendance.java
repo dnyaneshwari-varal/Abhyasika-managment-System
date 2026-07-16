@@ -19,27 +19,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 @Entity
 @Table(name = "attendance")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-
+@ToString(exclude = "student")
 public class Attendance {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	private LocalDate attendanceDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Enumerated(EnumType.STRING)
-	private AttendanceStatus attendanceStatus;
-	
-	@ManyToOne
-	@JoinColumn(name = "student_id")
-	private Student student;
+    private LocalDate attendanceDate;
 
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus attendanceStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }

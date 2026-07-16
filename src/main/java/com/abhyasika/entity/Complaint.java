@@ -1,5 +1,8 @@
 package com.abhyasika.entity;
 
+import java.time.LocalDate;
+
+import com.abhyasika.enums.ComplaintCategory;
 import com.abhyasika.enums.ComplaintStatus;
 
 import jakarta.persistence.Entity;
@@ -24,21 +27,26 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class Complaint {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	private String title;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String description;
+    @Enumerated(EnumType.STRING)
+    private ComplaintCategory complaintCategory;
 
-	@Enumerated(EnumType.STRING)
-	private ComplaintStatus complaintStatus;
-	
-	@ManyToOne
-	@JoinColumn(name = "student_id")
-	private Student student;
-	
+    private String title;
+
+    private String description;
+
+    private LocalDate complaintDate;
+
+    @Enumerated(EnumType.STRING)
+    private ComplaintStatus complaintStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
 }

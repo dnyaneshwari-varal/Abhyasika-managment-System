@@ -22,6 +22,10 @@ public class RoomDTO {
     @NotNull(message = "Room Type is required")
     private RoomType roomType;
     
+    @NotBlank(message = "Room Code is required")
+    private String roomCode;
+    
+    
     @NotNull(message = "Seat Count is required")
     private Integer seatCount;
 

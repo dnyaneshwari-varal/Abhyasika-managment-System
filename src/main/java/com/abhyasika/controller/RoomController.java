@@ -49,11 +49,12 @@ public class RoomController {
         return ResponseEntity.ok(roomService.updateRoom(id, roomDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteRoom(@PathVariable Long id) {
+    @DeleteMapping("/{roomCode}")
+    public ResponseEntity<String> deleteRoom(@PathVariable String roomCode) {
 
-        roomService.deleteRoom(id);
+        roomService.deleteRoom(roomCode);
 
-        return ResponseEntity.ok("Room Deleted Successfully");
+        return ResponseEntity.ok("Room deleted successfully");
     }
+    
 }
