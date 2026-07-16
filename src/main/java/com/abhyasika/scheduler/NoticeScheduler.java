@@ -22,18 +22,17 @@ public class NoticeScheduler {
     @Scheduled(cron = "0 0 0 * * ?")
     public void updateExpiredNotices() {
 
-        List<Notice> notices =
-                noticeRepository.findByNoticeStatus(NoticeStatus.ACTIVE);
+    	List<Notice> notices =
+    	        noticeRepository.findByNoticeStatusAndExpiryDateBefore(
+    	                NoticeStatus.ACTIVE,
+    	                LocalDate.now());
 
-        for (Notice notice : notices) {
+    	for (Notice notice : notices) {
 
-            if (notice.getExpiryDate().isBefore(LocalDate.now())) {
+    	    notice.setNoticeStatus(NoticeStatus.EXPIRED);
 
-                notice.setNoticeStatus(NoticeStatus.EXPIRED);
-
-                noticeRepository.save(notice);
-            }
-        }
+    	    noticeRepository.save(notice);
+    	}
 
         System.out.println("Expired Notices Updated");
     }
