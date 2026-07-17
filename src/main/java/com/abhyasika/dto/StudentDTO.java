@@ -1,7 +1,10 @@
 package com.abhyasika.dto;
 
 
+import java.time.LocalDate;
+
 import com.abhyasika.enums.Gender;
+import com.abhyasika.enums.MembershipType;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +34,12 @@ public class StudentDTO {
 	    private String email;
 
 	    private Gender gender;
+	    
+	    private MembershipType membershipType;
+
+	    private LocalDate membershipStartDate;
+
+	    private LocalDate membershipEndDate;
 
 	    @NotBlank(message = "Address is required")
 	    private String address;

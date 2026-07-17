@@ -1,9 +1,10 @@
 package com.abhyasika.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.abhyasika.enums.PaymentMethod;
-import com.abhyasika.enums.PaymentStatus;
+import com.abhyasika.enums.FeeStatus;
+import com.abhyasika.enums.MembershipType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,15 +19,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity
-@Table(name = "fees")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Entity
+@Table(name = "fees")
 public class Fees {
 
     @Id
@@ -37,26 +36,31 @@ public class Fees {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    private String month;
+    
+    
+    @Enumerated(EnumType.STRING)
+    private MembershipType membershipType;
 
-    private int year;
+    private Integer durationInMonths;
 
-    private Double totalFee;
+    private BigDecimal monthlyFee;
 
-    private Double paidAmount;
+    private BigDecimal originalAmount;
+    
+    private LocalDate membershipStartDate;
 
-    private Double pendingAmount;
+    private LocalDate membershipEndDate;
+    
+    private LocalDate dueDate;
+
+    private Double discountPercentage;
+
+    private BigDecimal discountAmount;
+
+    private BigDecimal finalAmount;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    private FeeStatus feeStatus;
 
     private LocalDate paymentDate;
-
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
-
-    private String transactionId;
-
-    private String remarks;
-
 }

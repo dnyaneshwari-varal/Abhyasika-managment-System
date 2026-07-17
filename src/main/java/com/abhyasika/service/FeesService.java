@@ -6,20 +6,21 @@ import com.abhyasika.dto.FeesDTO;
 
 public interface FeesService {
 
-	FeesDTO addFees(FeesDTO feesDTO);
+    // Generate fees for a student
+    FeesDTO generateFees(FeesDTO feesDTO);
 
-	List<FeesDTO> getAllFees();
+    // Get all fees (Admin)
+    List<FeesDTO> getAllFees();
 
-	FeesDTO getFeeById(Long id);
+    // Get fee by ID
+    FeesDTO getFeesById(Long feeId);
 
-	List<FeesDTO> getStudentFees(String studentId);
+    // Get all fees of a student
+    List<FeesDTO> getFeesByStudent(Long studentId);
 
-	List<FeesDTO> getPaidStudents();
+    // Update fee status after successful payment
+    FeesDTO payFees(Long feeId);
 
-	List<FeesDTO> getPartialStudents();
-
-	List<FeesDTO> getPendingStudents();
-    
-    
-
+    // Delete fee record
+    String deleteFees(Long feeId);
 }

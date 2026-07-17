@@ -48,6 +48,7 @@ public class RoomServiceImpl implements RoomService{
 	    room.setRoomCode(roomDTO.getRoomCode());
 	    room.setSeatCount(roomDTO.getSeatCount());
 	    room.setDescription(roomDTO.getDescription());
+	    room.setMonthlyFee(roomDTO.getMonthlyFee());
 
 	    // Save in Database
 	    Room savedRoom = roomRepository.save(room);
@@ -100,6 +101,8 @@ public class RoomServiceImpl implements RoomService{
 	        dto.setRoomType(room.getRoomType());
 	        dto.setSeatCount(room.getSeatCount());
 	        dto.setDescription(room.getDescription());
+	        dto.setMonthlyFee(room.getMonthlyFee());
+	        dto.setRoomCode(room.getRoomCode());
 
 	        roomDTOList.add(dto);
 	    }

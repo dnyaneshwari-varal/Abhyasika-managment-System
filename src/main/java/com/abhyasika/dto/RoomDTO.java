@@ -1,7 +1,8 @@
 package com.abhyasika.dto;
 
-import com.abhyasika.enums.RoomType;
+import java.math.BigDecimal;
 
+import com.abhyasika.enums.RoomType;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,8 @@ public class RoomDTO {
     
     @NotBlank(message = "Room Code is required")
     private String roomCode;
-    
+    @NotNull(message = "Monthly Fee is required")
+    private BigDecimal monthlyFee;
     
     @NotNull(message = "Seat Count is required")
     private Integer seatCount;

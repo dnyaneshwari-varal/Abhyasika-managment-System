@@ -19,7 +19,7 @@ public class NoticeScheduler {
         this.noticeRepository = noticeRepository;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "*/10 * * * * ?")
     public void updateExpiredNotices() {
 
     	List<Notice> notices =

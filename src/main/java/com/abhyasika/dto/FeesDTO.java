@@ -1,45 +1,48 @@
 package com.abhyasika.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.abhyasika.enums.PaymentMethod;
-import com.abhyasika.enums.PaymentStatus;
+import com.abhyasika.enums.FeeStatus;
+import com.abhyasika.enums.MembershipType;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
 public class FeesDTO {
 
-    private String studentId;
+    private Long id;
 
-    private String studentName;
+    @NotNull(message = "Student Id is required")
+    private Long studentId;
 
-    private String month;
+    @NotNull(message = "Membership Type is required")
+    private MembershipType membershipType;
 
-    private int year;
+    private Integer durationInMonths;
 
-    private Double totalFee;
+    private BigDecimal monthlyFee;
 
-    private Double paidAmount;
+    private BigDecimal originalAmount;
 
-    private Double pendingAmount;
+    private Double discountPercentage;
 
-    private PaymentStatus paymentStatus;
+    private BigDecimal discountAmount;
+
+    private BigDecimal finalAmount;
+
+    private LocalDate membershipStartDate;
+
+    private LocalDate membershipEndDate;
+
+    private LocalDate dueDate;
+
+    private FeeStatus feeStatus;
 
     private LocalDate paymentDate;
-
-    private PaymentMethod paymentMethod;
-
-    private String transactionId;
-
-    private String remarks;
-
 }

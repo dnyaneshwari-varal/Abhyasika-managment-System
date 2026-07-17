@@ -1,5 +1,6 @@
 package com.abhyasika.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.abhyasika.enums.RoomType;
@@ -45,6 +46,7 @@ public class Room {
     
     private Integer seatCount;
 
+    private BigDecimal monthlyFee;
    
     
     @OneToMany(

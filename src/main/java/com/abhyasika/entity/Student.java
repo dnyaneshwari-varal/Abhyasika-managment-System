@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.abhyasika.enums.Gender;
+import com.abhyasika.enums.MembershipType;
 import com.abhyasika.enums.StudentStatus;
 
 import jakarta.persistence.Column;
@@ -57,6 +58,13 @@ public class Student {
     private String address;
 
     private LocalDate joinDate;
+    
+    @Enumerated(EnumType.STRING)
+    private MembershipType membershipType;
+
+    private LocalDate membershipStartDate;
+
+    private LocalDate membershipEndDate;
 
     @Enumerated(EnumType.STRING)
     private StudentStatus status;

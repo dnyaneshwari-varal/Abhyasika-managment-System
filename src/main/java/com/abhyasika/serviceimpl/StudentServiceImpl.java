@@ -145,6 +145,8 @@ this.seatRepository = seatRepository;
 	    dto.setEmail(student.getEmail());
 	    dto.setGender(student.getGender());
 	    dto.setAddress(student.getAddress());
+	    
+	    System.out.println(dto.getAddress());
 
 	    return dto;
 	}
